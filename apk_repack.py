@@ -57,7 +57,7 @@ class APKdebugger(object):
 
     def intall_apk(self,apk_path):
         print 'intall apk...'
-        subprocess.call(["adb install",apk_path],shell=True)
+        subprocess.call(["adb","install","-r",apk_path],shell=True)
         pass
 
     def start_debug(self,android_manifest_path):
@@ -94,6 +94,8 @@ def main():
     signed_apk_path = the_config.current_program_path + '\\signed.apk'
     debug_apk_path = the_config.current_program_path + '\\debug.apk'
     apk_debugger.zipalign(the_config.zipalign_path,debug_apk_path,signed_apk_path)
+
+    apk_debugger.intall_apk(debug_apk_path)
 
     android_manifest_path = the_config.unpack_path + '\\AndroidManifest.xml'
     apk_debugger.start_debug(android_manifest_path)
